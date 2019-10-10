@@ -1,26 +1,20 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { connect } from 'react-redux';
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
-}
+import App from './App';
+import actions from '../../store/story/actions';
 
-export default App;
+const mapStateToProps = state => ({
+  stories: state.story.stories,
+  page: state.story.page,
+  storyIds: state.story.storyIds,
+  isFetching: state.story.isFetching
+});
+
+const mapDispatchToProps = dispatch => ({
+  fetchStoriesFirstPage: () => dispatch(actions.fetchStoryIds()),
+});
+
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(App);
